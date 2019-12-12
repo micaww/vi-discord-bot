@@ -2,7 +2,8 @@ const repNames = [
     'Amon',
     'Sarah',
     'Zlatan',
-    'Sean'
+    'Sean',
+    'Preston'
 ];
 
 function getRandomName() {
