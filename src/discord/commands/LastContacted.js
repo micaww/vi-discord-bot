@@ -3,8 +3,8 @@ const { register } = require('./util');
 const sheet = require('../../sheet');
 const { getRandomName, momentToExcelDate } = require('../../util');
 
-register('lastupdated', async (msg, list) => {
-    const usage = "Usage: !lastupdated <list of names>\n\nUsed to bulk update a list of comma-separated users' **Last Updated** date on the spreadsheet.";
+register('lastcontacted', async (msg, list) => {
+    const usage = "Usage: !lastcontacted <list of names>\n\nUsed to bulk update a list of comma-separated users' **Last Contacted** date on the spreadsheet.";
 
     if (!list) {
         return msg.reply(usage);
@@ -54,7 +54,7 @@ register('lastupdated', async (msg, list) => {
 
     data.data.sheets.forEach(sheet => {
         let usernameColumn = -1;
-        let lastUpdatedColumn = -1;
+        let lastContactedColumn = -1;
 
         sheet.data.forEach(data => {
             data.rowData.forEach((row, rowIdx) => {
@@ -65,17 +65,17 @@ register('lastupdated', async (msg, list) => {
                     usernameColumn = row.values.findIndex(cell => getCellValue(cell) === 'Username');
                 }
 
-                if (lastUpdatedColumn === -1) {
-                    // discover last updated column
-                    lastUpdatedColumn = row.values.findIndex(cell => getCellValue(cell) === 'Last Updated');
+                if (lastContactedColumn === -1) {
+                    // discover last contacted column
+                    lastContactedColumn = row.values.findIndex(cell => getCellValue(cell) === 'Last Contacted');
                 }
 
-                if (usernameColumn !== -1 && lastUpdatedColumn !== -1) {
+                if (usernameColumn !== -1 && lastContactedColumn !== -1) {
                     const value = getCellValue(row.values[usernameColumn]);
 
                     if (usernames.includes(value)) {
                         // username found in spreadsheet. update the last updated column
-                        addRequest(sheet.properties.sheetId, rowIdx, lastUpdatedColumn, now);
+                        addRequest(sheet.properties.sheetId, rowIdx, lastContactedColumn, now);
                         updatedUsernames.push(value);
                     }
                 }

@@ -1,1 +1,1 @@
-require('./LastUpdated');
+require('./LastContacted');
