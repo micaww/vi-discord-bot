@@ -91,4 +91,4 @@ register('lastcontacted', async (msg, list) => {
     await sheet.updateSheet(requests);
 
     msg.reply(`\n\nThe users specified have been updated in the Valve Index Shipping spreadsheet.\n\nRunning on coffee,\n${getRandomName()}`);
-});
+}, true);

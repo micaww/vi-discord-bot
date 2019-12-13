@@ -16,12 +16,11 @@ function register(command, handler, modOnly = false) {
 function handle(msg) {
     const content = msg.content;
 
-    if (content.startsWith('!') && msg.member.roles.some(r => r.name === 'Mod')) {
+    if (content.startsWith('!')) {
         const [command, ...args] = content.substring(1).split(' ');
 
-        const handler = commands.find(cmd => {
-            return cmd.command === command;
-        });
+        const handler = commands.find(cmd =>
+            cmd.command === command && (!cmd.modOnly || msg.member.roles.some(r => r.name === 'Mod')));
 
         if (handler) {
             handler.handler(msg, args.join(' '), args);
