@@ -16,7 +16,7 @@ function register(command, handler, modOnly = false) {
 function handle(msg) {
     const content = msg.content;
 
-    if (content.startsWith('!') && msg.member.roles.some(r => r.name === "Mod")) {
+    if (content.startsWith('!') && msg.member.roles.some(r => r.name === 'Mod')) {
         const [command, ...args] = content.substring(1).split(' ');
 
         const handler = commands.find(cmd => {

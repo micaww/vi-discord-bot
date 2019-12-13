@@ -9,12 +9,8 @@ client.on('message', commandHandler);
 
 function init(token) {
     return new Promise((resolve, reject) => {
-        client.on('ready', () => {
-            resolve();
-        });
-
+        client.on('ready', resolve);
         client.on('error', reject);
-
         client.login(token);
     });
 }
