@@ -6,7 +6,7 @@ const { getRandomName, getCellValue, createUpdateCellRequest, lookupColumn, mome
 register('delivered', async (msg, rawDate) => {
     const username = msg.author.username + '#' + msg.author.discriminator;
 
-    let date = moment();
+    let date = moment().tz('America/New_York');
 
     if (rawDate) {
         date = moment(rawDate, 'MM/DD/YYYY');
