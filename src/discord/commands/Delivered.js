@@ -6,10 +6,10 @@ const { getRandomName, getCellValue, createUpdateCellRequest, lookupColumn, mome
 register('delivered', async (msg, rawDate) => {
     const username = msg.author.username + '#' + msg.author.discriminator;
 
-    let date = moment().tz('America/New_York');
+    let date = moment();
 
     if (rawDate) {
-        date = moment(rawDate, 'MM/DD/YYYY').tz('America/New_York');
+        date = moment(rawDate, 'MM/DD/YYYY');
         if (!date.isValid()) {
             return msg.reply('The date you provided is not valid. The expected format is MM/DD/YYYY.');
         }
@@ -57,5 +57,5 @@ register('delivered', async (msg, rawDate) => {
 
     await sheet.updateSheet(requests);
 
-    msg.reply(`\n\nYour current order status has been changed to **Delivered**, and the Delivery Date has been set to now. If this is incorrect, use **!delivered MM/DD/YYYY** to update your row.\n\nHave fun with your new Valve Index! :sweat_drops: :sweat_drops:\n\nRunning on coffee,\n${getRandomName()}`);
+    msg.reply(`\n\nYour current order status has been changed to **Delivered**, and the Delivery Date has been set to **${date.format('dddd, MMMM Do, YYYY')}**. If this is incorrect, use **!delivered MM/DD/YYYY** to update your row.\n\nHave fun with your new Valve Index! :sweat_drops: :sweat_drops:\n\nRunning on coffee,\n${getRandomName()}`);
 });

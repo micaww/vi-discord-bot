@@ -6,10 +6,10 @@ const { getRandomName, momentToExcelDate, getCellValue, createUpdateCellRequest,
 register('shipped', async (msg, rawDate) => {
     const username = msg.author.username + '#' + msg.author.discriminator;
 
-    let date = moment().tz('America/New_York');
+    let date = moment();
 
     if (rawDate) {
-        date = moment(rawDate, 'MM/DD/YYYY').tz('America/New_York');
+        date = moment(rawDate, 'MM/DD/YYYY');
         if (!date.isValid()) {
             return msg.reply('The date you provided is not valid. The expected format is MM/DD/YYYY.');
         }
@@ -50,5 +50,5 @@ register('shipped', async (msg, rawDate) => {
 
     await sheet.updateSheet(requests);
 
-    msg.reply(`\n\nYour current order status has been changed to **Shipped**, and the Date Shipped has been set to today. Use **!shipped MM/DD/YYYY** to change the Date Shipped.\n\nRunning on coffee,\n${getRandomName()}`);
+    msg.reply(`\n\nYour current order status has been changed to **Shipped**, and the Date Shipped has been set to **${date.format('dddd, MMMM Do, YYYY')}**. Use **!shipped MM/DD/YYYY** to change the Date Shipped.\n\nRunning on coffee,\n${getRandomName()}`);
 });

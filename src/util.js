@@ -13,7 +13,7 @@ function getRandomName() {
 }
 
 function momentToExcelDate(moment) {
-    const returnDateTime = 25569.0 + ((moment.valueOf() + (moment._offset * 60 * 1000)) / (1000 * 60 * 60 * 24));
+    const returnDateTime = 25569.0 + ((moment.valueOf() + ((moment._offset || 0) * 60 * 1000)) / (1000 * 60 * 60 * 24));
 
     return +(returnDateTime.toString().substr(0,20));
 }
