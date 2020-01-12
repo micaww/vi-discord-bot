@@ -2,6 +2,7 @@ const moment = require('moment-timezone');
 const { register } = require('./util');
 const sheet = require('../../sheet');
 const { getRandomName, getCellValue, createUpdateCellRequest, lookupColumn, momentToExcelDate } = require('../../util');
+const config = require('../../config.json');
 
 register('delivered', async (msg, rawDate) => {
     const username = msg.author.username + '#' + msg.author.discriminator;
@@ -57,5 +58,10 @@ register('delivered', async (msg, rawDate) => {
 
     await sheet.updateSheet(requests);
 
-    msg.reply(`\n\nYour current order status has been changed to **Delivered**, and the Delivery Date has been set to **${date.format('dddd, MMMM Do, YYYY')}**. If this is incorrect, use **!delivered MM/DD/YYYY** to update your row.\n\nHave fun with your new Valve Index! :sweat_drops: :sweat_drops:\n\nRunning on coffee,\n${getRandomName()}`);
+    const roleId = config.discord.deliveredRole;
+    if (roleId) {
+        await msg.member.addRole(roleId);
+    }
+
+    msg.reply(`\n\nYour current order status has been changed to **Delivered** and you have been given the appropriate role. The Delivery Date has been set to **${date.format('dddd, MMMM Do, YYYY')}**. If this is incorrect, use **!delivered MM/DD/YYYY** to update your row.\n\nHave fun with your new Valve Index! :sweat_drops: :sweat_drops:\n\nRunning on coffee,\n${getRandomName()}`);
 });
